@@ -25,7 +25,15 @@ namespace SimpleExplorer
             foreach (var eventData in messages)
             {
                 var data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-                Trace.TraceInformation($"Partition Id: {context.PartitionId}; Message: {data}");
+                var sb = new StringBuilder();
+                sb.AppendLine($"Partition Id: {context.PartitionId}");
+                sb.AppendLine("Properties:");
+                foreach(var p in eventData.Properties)
+                {
+                    sb.AppendLine($"  {p.Key}: {p.Value}");
+                }
+                sb.AppendLine($"Message: {data}");
+                Trace.TraceInformation(sb.ToString());
             }
 
             return context.CheckpointAsync();

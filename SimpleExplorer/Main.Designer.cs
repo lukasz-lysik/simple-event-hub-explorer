@@ -30,6 +30,8 @@
         {
             this.tbEhOutput = new System.Windows.Forms.TextBox();
             this.gbConnSettings = new System.Windows.Forms.GroupBox();
+            this.tbConsumerGroup = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblExplain = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnDisconnect = new System.Windows.Forms.Button();
@@ -50,9 +52,9 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.tbEhInput = new System.Windows.Forms.TextBox();
             this.gbReadMsg = new System.Windows.Forms.GroupBox();
+            this.btnClearRead = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
-            this.btnClearRead = new System.Windows.Forms.Button();
             this.gbConnSettings.SuspendLayout();
             this.gbSendMsg.SuspendLayout();
             this.gbReadMsg.SuspendLayout();
@@ -64,11 +66,14 @@
             this.tbEhOutput.Multiline = true;
             this.tbEhOutput.Name = "tbEhOutput";
             this.tbEhOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbEhOutput.Size = new System.Drawing.Size(687, 247);
+            this.tbEhOutput.Size = new System.Drawing.Size(687, 251);
             this.tbEhOutput.TabIndex = 10;
+            this.tbEhOutput.TextChanged += new System.EventHandler(this.tbEhOutput_TextChanged);
             // 
             // gbConnSettings
             // 
+            this.gbConnSettings.Controls.Add(this.tbConsumerGroup);
+            this.gbConnSettings.Controls.Add(this.label1);
             this.gbConnSettings.Controls.Add(this.lblExplain);
             this.gbConnSettings.Controls.Add(this.label6);
             this.gbConnSettings.Controls.Add(this.btnDisconnect);
@@ -90,9 +95,26 @@
             this.gbConnSettings.TabStop = false;
             this.gbConnSettings.Text = "Connection Settings";
             // 
+            // tbConsumerGroup
+            // 
+            this.tbConsumerGroup.Location = new System.Drawing.Point(10, 378);
+            this.tbConsumerGroup.Name = "tbConsumerGroup";
+            this.tbConsumerGroup.Size = new System.Drawing.Size(299, 20);
+            this.tbConsumerGroup.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 357);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(202, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Consumer Group (leave empty for default)";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // lblExplain
             // 
-            this.lblExplain.Location = new System.Drawing.Point(10, 226);
+            this.lblExplain.Location = new System.Drawing.Point(10, 211);
             this.lblExplain.Name = "lblExplain";
             this.lblExplain.Size = new System.Drawing.Size(299, 45);
             this.lblExplain.TabIndex = 10;
@@ -103,7 +125,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(7, 207);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 20);
+            this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
             // 
             // btnDisconnect
@@ -139,39 +161,39 @@
             this.lblStorageAcctKey.AutoSize = true;
             this.lblStorageAcctKey.Location = new System.Drawing.Point(7, 403);
             this.lblStorageAcctKey.Name = "lblStorageAcctKey";
-            this.lblStorageAcctKey.Size = new System.Drawing.Size(159, 20);
+            this.lblStorageAcctKey.Size = new System.Drawing.Size(108, 13);
             this.lblStorageAcctKey.TabIndex = 8;
             this.lblStorageAcctKey.Text = "Storage Account Key";
             // 
             // tbStorageAccountName
             // 
-            this.tbStorageAccountName.Location = new System.Drawing.Point(10, 297);
+            this.tbStorageAccountName.Location = new System.Drawing.Point(10, 283);
             this.tbStorageAccountName.Name = "tbStorageAccountName";
-            this.tbStorageAccountName.Size = new System.Drawing.Size(299, 26);
+            this.tbStorageAccountName.Size = new System.Drawing.Size(299, 20);
             this.tbStorageAccountName.TabIndex = 4;
             // 
             // lblStorageAcctName
             // 
             this.lblStorageAcctName.AutoSize = true;
-            this.lblStorageAcctName.Location = new System.Drawing.Point(7, 276);
+            this.lblStorageAcctName.Location = new System.Drawing.Point(7, 262);
             this.lblStorageAcctName.Name = "lblStorageAcctName";
-            this.lblStorageAcctName.Size = new System.Drawing.Size(179, 20);
+            this.lblStorageAcctName.Size = new System.Drawing.Size(121, 13);
             this.lblStorageAcctName.TabIndex = 6;
             this.lblStorageAcctName.Text = "Storage Account Name ";
             // 
             // tbStorageContainerName
             // 
-            this.tbStorageContainerName.Location = new System.Drawing.Point(10, 358);
+            this.tbStorageContainerName.Location = new System.Drawing.Point(10, 330);
             this.tbStorageContainerName.Name = "tbStorageContainerName";
-            this.tbStorageContainerName.Size = new System.Drawing.Size(299, 26);
+            this.tbStorageContainerName.Size = new System.Drawing.Size(299, 20);
             this.tbStorageContainerName.TabIndex = 3;
             // 
             // lblStorageContainerName
             // 
             this.lblStorageContainerName.AutoSize = true;
-            this.lblStorageContainerName.Location = new System.Drawing.Point(7, 337);
+            this.lblStorageContainerName.Location = new System.Drawing.Point(7, 309);
             this.lblStorageContainerName.Name = "lblStorageContainerName";
-            this.lblStorageContainerName.Size = new System.Drawing.Size(185, 20);
+            this.lblStorageContainerName.Size = new System.Drawing.Size(123, 13);
             this.lblStorageContainerName.TabIndex = 4;
             this.lblStorageContainerName.Text = "Storage Container Name";
             // 
@@ -179,7 +201,7 @@
             // 
             this.tbEventHubEntityPath.Location = new System.Drawing.Point(10, 175);
             this.tbEventHubEntityPath.Name = "tbEventHubEntityPath";
-            this.tbEventHubEntityPath.Size = new System.Drawing.Size(299, 26);
+            this.tbEventHubEntityPath.Size = new System.Drawing.Size(299, 20);
             this.tbEventHubEntityPath.TabIndex = 2;
             // 
             // lblEhEntityPath
@@ -187,7 +209,7 @@
             this.lblEhEntityPath.AutoSize = true;
             this.lblEhEntityPath.Location = new System.Drawing.Point(7, 152);
             this.lblEhEntityPath.Name = "lblEhEntityPath";
-            this.lblEhEntityPath.Size = new System.Drawing.Size(165, 20);
+            this.lblEhEntityPath.Size = new System.Drawing.Size(112, 13);
             this.lblEhEntityPath.TabIndex = 2;
             this.lblEhEntityPath.Text = "Event Hub Entity Path";
             // 
@@ -204,7 +226,7 @@
             this.lblEhConnString.AutoSize = true;
             this.lblEhConnString.Location = new System.Drawing.Point(7, 28);
             this.lblEhConnString.Name = "lblEhConnString";
-            this.lblEhConnString.Size = new System.Drawing.Size(215, 20);
+            this.lblEhConnString.Size = new System.Drawing.Size(145, 13);
             this.lblEhConnString.TabIndex = 0;
             this.lblEhConnString.Text = "Event Hub Connection String";
             // 
@@ -271,6 +293,16 @@
             this.gbReadMsg.TabStop = false;
             this.gbReadMsg.Text = "Read Messages";
             // 
+            // btnClearRead
+            // 
+            this.btnClearRead.Location = new System.Drawing.Point(456, 285);
+            this.btnClearRead.Name = "btnClearRead";
+            this.btnClearRead.Size = new System.Drawing.Size(75, 31);
+            this.btnClearRead.TabIndex = 13;
+            this.btnClearRead.Text = "Clear";
+            this.btnClearRead.UseVisualStyleBackColor = true;
+            this.btnClearRead.Click += new System.EventHandler(this.btnClearRead_Click);
+            // 
             // btnStop
             // 
             this.btnStop.Enabled = false;
@@ -293,16 +325,6 @@
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
-            // btnClearRead
-            // 
-            this.btnClearRead.Location = new System.Drawing.Point(456, 285);
-            this.btnClearRead.Name = "btnClearRead";
-            this.btnClearRead.Size = new System.Drawing.Size(75, 31);
-            this.btnClearRead.TabIndex = 13;
-            this.btnClearRead.Text = "Clear";
-            this.btnClearRead.UseVisualStyleBackColor = true;
-            this.btnClearRead.Click += new System.EventHandler(this.btnClearRead_Click);
-            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1046, 693);
@@ -313,6 +335,7 @@
             this.Name = "Main";
             this.Text = "Simple Explorer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.gbConnSettings.ResumeLayout(false);
             this.gbConnSettings.PerformLayout();
             this.gbSendMsg.ResumeLayout(false);
@@ -351,6 +374,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblExplain;
         private System.Windows.Forms.Button btnClearRead;
+        private System.Windows.Forms.TextBox tbConsumerGroup;
+        private System.Windows.Forms.Label label1;
     }
 }
 

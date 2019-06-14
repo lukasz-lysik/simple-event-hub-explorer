@@ -19,6 +19,7 @@ namespace SimpleExplorer
         private string _storageContainerName;
         private string _storageAccountName;
         private string _storageAccountKey;
+        private string _consumerGroup;
         #endregion
 
         #region Properties
@@ -66,8 +67,13 @@ namespace SimpleExplorer
         }
         private string StorageAccountKey
         {
-            get { return _storageAccountKey;  }   
-            set { _storageAccountKey = value.Trim();  }
+            get { return _storageAccountKey; }
+            set { _storageAccountKey = value.Trim(); }
+        }
+        private string ConsumerGroup
+        {
+            get { return _consumerGroup; }
+            set { _consumerGroup = value.Trim(); }
         }
         private string StorageConnectionString => $"DefaultEndpointsProtocol=https;AccountName={StorageAccountName};AccountKey={StorageAccountKey}";
         #endregion
@@ -337,7 +343,7 @@ namespace SimpleExplorer
         {
             ProcessorHost = new EventProcessorHost(
                 EventHubEntityPath,
-                PartitionReceiver.DefaultConsumerGroupName,
+                string.IsNullOrEmpty(tbConsumerGroup.Text) ? PartitionReceiver.DefaultConsumerGroupName : tbConsumerGroup.Text,
                 EventHubConnectionString,
                 StorageConnectionString,
                 StorageContainerName
@@ -390,15 +396,32 @@ namespace SimpleExplorer
             StorageAccountName = ConfigurationManager.AppSettings["StorageAccountName"];
             StorageContainerName = ConfigurationManager.AppSettings["StorageContainerName"];
             StorageAccountKey = ConfigurationManager.AppSettings["StorageAccountKey"];
+            ConsumerGroup = ConfigurationManager.AppSettings["ConsumerGroup"];
 
             tbEventHubConnectionString.Text = EventHubConnectionString;
             tbEventHubEntityPath.Text = EventHubEntityPath;
             tbStorageAccountName.Text = StorageAccountName;
             tbStorageContainerName.Text = StorageContainerName;
             tbStorageAccountKey.Text = StorageAccountKey;
+            tbConsumerGroup.Text = ConsumerGroup;
 
             btnConnect.Enabled = true;
         }
         #endregion
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbEhOutput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
